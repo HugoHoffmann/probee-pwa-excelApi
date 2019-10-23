@@ -1,13 +1,11 @@
 import React from 'react';
 
-import User from '../../components/User';
-
 import { Container } from './styles';
 
-export default function Main() {
+export default function User() {
   return (
     <Container>
-      <User />
+      <h1>Usuários list</h1>
     </Container>
   );
 }
