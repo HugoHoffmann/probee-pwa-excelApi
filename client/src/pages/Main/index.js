@@ -1,6 +1,6 @@
 import React from 'react';
 
-import User from '../../components/User';
+// import User from '../../components/User';
 import Header from '../../components/Header';
 
 import { Container } from './styles';
@@ -8,8 +8,7 @@ import { Container } from './styles';
 export default function Main() {
   return (
     <Container>
-      <Header />
-      <User />
+      <h1>MAin</h1>
     </Container>
   );
 }
