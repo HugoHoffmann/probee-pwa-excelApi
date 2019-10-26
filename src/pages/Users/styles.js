@@ -46,3 +46,8 @@ export const User = styled.li`
     font-weight: normal;
   }
 `;
+
+export const ButtonIcon = styled.button`
+  background: transparent;
+  border: none;
+`;

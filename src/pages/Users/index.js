@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { MdModeEdit, MdDelete } from "react-icons/md";
 
 import Header from "../../components/Header";
 import { api } from "../../services/api";
 
-import { Container, User } from "./styles";
+import { Container, User, ButtonIcon } from "./styles";
 
 export default function Users() {
   const [users, setUsers] = useState();
+  const [newUser, setNewUser] = useState();
+  const [email, setEmail] = useState();
   const idApi = "14B8PtCS-aKwA3TVgfXbp9NdEwqmzft3T-rl-vj00YWY";
   const type = "users";
 
@@ -27,12 +30,24 @@ export default function Users() {
   // function handleEdit(){
 
   // }
+  // function handleDelete(){
+
+  // }
   return (
     <>
       <Header />
       <Container>
         <form onSubmit={handleSubmit}>
-          <input value={users} onChange={setUsers} />
+          <input
+            value={newUser}
+            placeholder="example..."
+            onChange={setNewUser}
+          />
+          <input
+            value={email}
+            onChange={setEmail}
+            placeholder="email@example.com"
+          />
           <button>Salvar</button>
         </form>
         <ul>
@@ -41,7 +56,14 @@ export default function Users() {
               <User key={key}>
                 <strong>{user.nome}</strong>
                 <strong>{user.email}</strong>
-                <strong>Icone edita</strong>
+                <strong>
+                  <ButtonIcon >
+                    <MdModeEdit />
+                  </ButtonIcon>
+                  <ButtonIcon onClick={() => handleDelete(user) } >
+                    <MdDelete />
+                  </ButtonIcon>
+                </strong>
               </User>
             ))}
         </ul>
