@@ -13,14 +13,14 @@ export default function Users() {
   const idApi = "14B8PtCS-aKwA3TVgfXbp9NdEwqmzft3T-rl-vj00YWY";
   const type = "users";
 
-  useEffect(() => {
-    async function getUsers() {
-      const response = await api.get(`${type}?spreadsheetId=${idApi}`);
-      const { results } = response.data;
-      if (results) {
-        setUsers(results);
-      }
+  async function getUsers() {
+    const response = await api.get(`${type}?spreadsheetId=${idApi}`);
+    const { results } = response.data;
+    if (results) {
+      setUsers(results);
     }
+  }
+  useEffect(() => {
     getUsers();
   }, []);
 
@@ -30,9 +30,16 @@ export default function Users() {
   // function handleEdit(){
 
   // }
-  // function handleDelete(){
+  async function handleDelete(rowIndex){
+    await api.delete(`${type}/${rowIndex}?spreadsheetId=${idApi}`);
+    
+    getUsers();
+  }
 
-  // }
+  function handleEdit({rowIndex, nome, email}){
+    debugger;
+  }
+
   return (
     <>
       <Header />
@@ -58,10 +65,10 @@ export default function Users() {
                 <strong>{user.email}</strong>
                 <strong>
                   <ButtonIcon >
-                    <MdModeEdit />
+                    <MdModeEdit onClick={() => handleEdit(user)}/>
                   </ButtonIcon>
-                  <ButtonIcon onClick={() => handleDelete(user) } >
-                    <MdDelete />
+                  <ButtonIcon   >
+                    <MdDelete onClick={() => handleDelete(user.rowIndex)}/>
                   </ButtonIcon>
                 </strong>
               </User>
