@@ -9,8 +9,9 @@ import { api } from "../../services/api";
 
 import { Container, User, ButtonIcon } from "./styles";
 
-export default function Users({closeUserModal}) {
+export default function Users() {
   const [users, setUsers] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [user, setUser] = useState();
   const [newUser, setNewUser] = useState();
   const [email, setEmail] = useState();
@@ -47,11 +48,10 @@ export default function Users({closeUserModal}) {
   }
 
   function handleEdit({ rowIndex, nome, email }) {
-    debugger;
+    setIsModalOpen(true);
   }
-
-  function handleInputChange(){
-    // modal edit
+ function handleModal(){
+    setIsModalOpen(!isModalOpen);
   }
 
   return (
@@ -79,32 +79,41 @@ export default function Users({closeUserModal}) {
                 <strong>{user.email}</strong>
                 <strong>
                   <ButtonIcon>
-                    <MdModeEdit onClick={() => handleEdit(user)} />
+                    <MdModeEdit size={20} onClick={() => handleEdit(user)} />
                   </ButtonIcon>
                   <ButtonIcon>
-                    <MdDelete onClick={() => handleDelete(user.rowIndex)} />
+                    <MdDelete size={20} onClick={() => handleDelete(user.rowIndex)} />
                   </ButtonIcon>
                 </strong>
               </User>
             ))}
         </ul>
-        <Modal size="big">
-          <h1>Edição Usuário</h1>
-          <form>
-            <span>NOME</span>
-            <input
-              name="user"
-              value={user}
-              onChange={handleInputChange}
-            />
-            <Button onClick={handleEdit} size="big" type="submit">
-              Salvar
-            </Button>
-            <Button onClick={closeUserModal} size="small" color="gray">
-              Cancelar
-            </Button>
-          </form>
-        </Modal>
+          {isModalOpen && (
+            
+            <Modal size="big">
+              <h1>Edição Usuário</h1>
+              <form>
+                <span>Nome</span>
+                <input
+                  name="user"
+                  value={user}
+                  onChange={e => setUser(e.target.value)}
+                />
+                <span>Email</span>
+                <input
+                  name="user"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+                <Button onClick={handleEdit} size="big" type="submit">
+                  Salvar
+                </Button>
+                <Button onClick={handleModal} size="small" color="gray">
+                  Cancelar
+                </Button>
+              </form>
+            </Modal>
+          )}
       </Container>
     </>
   );
