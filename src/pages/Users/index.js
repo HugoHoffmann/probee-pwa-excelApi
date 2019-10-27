@@ -32,10 +32,10 @@ export default function Users() {
   }, []);
 
   async function handleSubmit(e) {
-    e.stopPropagation();
+    e.preventDefault();
     const teste = await api.post(`${type}?spreadsheetId=${idApi}`, {
-      nome: user,
-      email: email
+      nome: newUser,
+      email: newEmail
     });
     debugger;
     toast.success("Usuário criado com sucesso!");
@@ -88,7 +88,7 @@ export default function Users() {
             onChange={e => setNewEmail(e.target.value)}
             placeholder="email@example.com"
           />
-          <button onClick={handleSubmit}>Salvar</button>
+          <button onClick={ e => handleSubmit(e)}>Salvar</button>
         </form>
         <ul>
           {users &&
