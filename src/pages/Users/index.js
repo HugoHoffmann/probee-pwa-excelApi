@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MdModeEdit, MdDelete } from "react-icons/md";
+import { toast } from 'react-toastify';
 
 import Header from "../../components/Header";
 import { api } from "../../services/api";
@@ -30,10 +31,17 @@ export default function Users() {
   // function handleEdit(){
 
   // }
-  async function handleDelete(rowIndex){
-    await api.delete(`${type}/${rowIndex}?spreadsheetId=${idApi}`);
-    
-    getUsers();
+  function removeUser(id){
+    const usersFilter = users.filter(value => {
+      return value.rowIndex !== id;
+    });
+    setUsers(usersFilter);
+  }
+   function handleDelete(rowIndex){
+    removeUser(rowIndex);
+    toast.success('Usuário excluído com sucesso!')
+    api.delete(`${type}/${rowIndex}?spreadsheetId=${idApi}`);
+
   }
 
   function handleEdit({rowIndex, nome, email}){
