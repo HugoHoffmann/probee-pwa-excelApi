@@ -13,6 +13,7 @@ export default function Users() {
   const [users, setUsers] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [user, setUser] = useState();
+  const [id, setId] = useState();
   const [newUser, setNewUser] = useState();
   const [email, setEmail] = useState();
   const idApi = "14B8PtCS-aKwA3TVgfXbp9NdEwqmzft3T-rl-vj00YWY";
@@ -48,9 +49,21 @@ export default function Users() {
   }
 
   function handleEdit({ rowIndex, nome, email }) {
+    setUser(nome);
+    setId(rowIndex);
+    setEmail(email);
     setIsModalOpen(true);
   }
- function handleModal(){
+  async function handleSendEdit(){
+    const teste = await api.patch(`${type}/${id}?spreadsheetId=${idApi}`, {
+      nome: user,
+      email: email
+    });
+    debugger;
+    toast.success("Usuário alterado com sucesso!");
+    setIsModalOpen(!isModalOpen)
+  } 
+  function handleModal(){
     setIsModalOpen(!isModalOpen);
   }
 
@@ -58,18 +71,19 @@ export default function Users() {
     <>
       <Header />
       <Container>
-        <form onSubmit={handleSubmit}>
+        <form>
           <input
             value={newUser}
             placeholder="example..."
-            onChange={setNewUser}
+            onChange={e => setNewUser(e.target.value)}
           />
           <input
             value={email}
-            onChange={setEmail}
+            type="email"
+            onChange={e => setEmail(e.target.value)}
             placeholder="email@example.com"
           />
-          <button>Salvar</button>
+          <button onClick={handleSubmit}>Salvar</button>
         </form>
         <ul>
           {users &&
@@ -105,7 +119,7 @@ export default function Users() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                 />
-                <Button onClick={handleEdit} size="big" type="submit">
+                <Button onClick={handleSendEdit} size="big" type="submit">
                   Salvar
                 </Button>
                 <Button onClick={handleModal} size="small" color="gray">
