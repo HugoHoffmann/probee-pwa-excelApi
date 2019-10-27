@@ -15,6 +15,7 @@ export default function Users() {
   const [user, setUser] = useState();
   const [id, setId] = useState();
   const [newUser, setNewUser] = useState();
+  const [newEmail, setNewEmail] = useState();
   const [email, setEmail] = useState();
   const idApi = "14B8PtCS-aKwA3TVgfXbp9NdEwqmzft3T-rl-vj00YWY";
   const type = "users";
@@ -32,10 +33,14 @@ export default function Users() {
 
   function handleSubmit(e) {
     e.stopPropagation();
+    const teste = await api.post(`${type}?spreadsheetId=${idApi}`, {
+      nome: user,
+      email: email
+    });
+    debugger;
+    toast.success("Usuário criado com sucesso!");
   }
-  // function handleEdit(){
 
-  // }
   function removeUser(id) {
     const usersFilter = users.filter(value => {
       return value.rowIndex !== id;
@@ -78,9 +83,9 @@ export default function Users() {
             onChange={e => setNewUser(e.target.value)}
           />
           <input
-            value={email}
+            value={newEmail}
             type="email"
-            onChange={e => setEmail(e.target.value)}
+            onChange={e => setNewEmail(e.target.value)}
             placeholder="email@example.com"
           />
           <button onClick={handleSubmit}>Salvar</button>
