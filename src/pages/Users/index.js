@@ -31,7 +31,7 @@ export default function Users() {
     getUsers();
   }, []);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.stopPropagation();
     const teste = await api.post(`${type}?spreadsheetId=${idApi}`, {
       nome: user,
