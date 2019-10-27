@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import Routes from './routes';
 
 
-import GlobalStyle from './style/global';
+import GlobalStyle from './styles/global';
 
 
 function App() {
