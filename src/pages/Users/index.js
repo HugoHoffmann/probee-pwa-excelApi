@@ -33,7 +33,7 @@ export default function Users() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const teste = await api.post(`${type}?spreadsheetId=${idApi}`, {
+    await api.post(`${type}?spreadsheetId=${idApi}`, {
       nome: newUser,
       email: newEmail
     });
@@ -62,7 +62,7 @@ export default function Users() {
     setIsModalOpen(true);
   }
   async function handleSendEdit(){
-    const teste = await api.patch(`${type}/${id}?spreadsheetId=${idApi}`, {
+    await api.put(`${type}/${id}?spreadsheetId=${idApi}`, {
       nome: user,
       email: email
     });
