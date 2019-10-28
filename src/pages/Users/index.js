@@ -37,8 +37,10 @@ export default function Users() {
       nome: newUser,
       email: newEmail
     });
-    debugger;
     toast.success("Usuário criado com sucesso!");
+    getUsers();
+    setNewEmail('');
+    setNewUser('');
   }
 
   function removeUser(id) {
@@ -64,9 +66,9 @@ export default function Users() {
       nome: user,
       email: email
     });
-    debugger;
     toast.success("Usuário alterado com sucesso!");
-    setIsModalOpen(!isModalOpen)
+    setIsModalOpen(!isModalOpen);
+    getUsers();
   } 
   function handleModal(){
     setIsModalOpen(!isModalOpen);
