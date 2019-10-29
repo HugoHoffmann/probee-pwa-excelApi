@@ -23,13 +23,11 @@ export default function Users() {
   async function getUsers() {
     const response = await api.get(`${type}?spreadsheetId=${idApi}`);
     const { results } = response.data;
-    if (results) {
-      setUsers(results);
-    }
+
+    if (results) setUsers(results);
   }
-  useEffect(() => {
-    getUsers();
-  }, []);
+
+  useEffect(getUsers, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -37,6 +35,7 @@ export default function Users() {
       nome: newUser,
       email: newEmail
     });
+
     toast.success("Usuário criado com sucesso!");
     getUsers();
     setNewEmail('');
@@ -44,11 +43,11 @@ export default function Users() {
   }
 
   function removeUser(id) {
-    const usersFilter = users.filter(value => {
-      return value.rowIndex !== id;
-    });
+    const usersFilter = users.filter(value => value.rowIndex !== id);
+
     setUsers(usersFilter);
   }
+
   function handleDelete(rowIndex) {
     removeUser(rowIndex);
     toast.success("Usuário excluído com sucesso!");
@@ -61,15 +60,18 @@ export default function Users() {
     setEmail(email);
     setIsModalOpen(true);
   }
+
   async function handleSendEdit(){
     await api.put(`${type}/${id}?spreadsheetId=${idApi}`, {
       nome: user,
       email: email
     });
+
     toast.success("Usuário alterado com sucesso!");
     setIsModalOpen(!isModalOpen);
     getUsers();
-  } 
+  }
+
   function handleModal(){
     setIsModalOpen(!isModalOpen);
   }
@@ -90,7 +92,7 @@ export default function Users() {
             onChange={e => setNewEmail(e.target.value)}
             placeholder="email@example.com"
           />
-          <button onClick={ e => handleSubmit(e)}>Salvar</button>
+          <button onClick={e => handleSubmit(e)}>Salvar</button>
         </form>
         <ul>
           {users &&
@@ -109,8 +111,7 @@ export default function Users() {
               </User>
             ))}
         </ul>
-          {isModalOpen && (
-            
+          {isModalOpen && ( 
             <Modal size="big">
               <h1>Edição Usuário</h1>
               <form>
