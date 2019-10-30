@@ -27,7 +27,7 @@ export default function Users() {
     if (results) setUsers(results);
   }
 
-  useEffect(getUsers, []);
+  useEffect(() => { getUsers() }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
